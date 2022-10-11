@@ -40,6 +40,11 @@ public class RedditService
             db.SaveChanges();
             CommentVote(1, 2, true);
             PostVote(1, 2, true);
+            db.SaveChanges();
+            CreatePost("Jesper","lol","hej");
+            db.SaveChanges();
+            CreateComment("William", "Hej Test", 4);
+            
         }
         db.SaveChanges();
     }
@@ -78,8 +83,8 @@ public class RedditService
     }
     public void CreatePost(string userName, string title, string body)
     {
-        int checker = db.Users.Where(u => u.Name == userName).ToList().Count;
-        if (checker < 1)
+
+        if (!db.Users.Any(u => u.Name == userName))
         {
             User newuser = new User(userName);
             db.Add(newuser);
@@ -90,8 +95,8 @@ public class RedditService
     }
     public void CreateComment(string userName, string body, long postID)
     {
-        int checker = db.Users.Where(u => u.Name == userName).ToList().Count;
-        if (checker < 1)
+        
+        if (!db.Users.Any(u => u.Name == userName))
         {
             User newuser = new User(userName);
             db.Add(newuser);
