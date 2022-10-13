@@ -60,14 +60,20 @@ app.Use(async (context, next) =>
 
 app.MapGet("/getallpost", (RedditService service) =>
 {
-    
     return service.GetPosts();
-
+});
+app.MapGet("/getallusers", (RedditService service) =>
+{
+    return service.GetAllUsers();
 });
 
 app.MapGet("/getpost/{id}", (RedditService service, int id) =>
 {
     return service.GetPost(id);
+});
+app.MapGet("/getuser/{id}", (RedditService service, int id) =>
+{
+    return service.GetUser(id);
 });
 app.MapGet("/getallcomment/{id}", (RedditService service, int id) =>
 {

@@ -56,7 +56,14 @@ public class RedditService
         }
         db.SaveChanges();
     }
-
+    public List<User> GetAllUsers()
+    {
+        return db.Users.ToList();
+    }
+    public User GetUser(long id)
+    {
+        return db.Users.Where(u => u.UserId == id).ToList().FirstOrDefault();
+    }
     public List<Post> GetPosts()
     {
         return db.Posts.ToList();
