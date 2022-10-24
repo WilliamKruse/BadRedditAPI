@@ -1,3 +1,31 @@
 ﻿<Properties StartupConfiguration="{3CB34FD3-A5DF-4DA5-AA73-8106F3B7A5EE}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Model/User.cs">
+    <Files>
+      <File FileName="Model/User.cs" Line="11" Column="44" />
+      <File FileName="Service/RedditService.cs" Line="68" Column="6" />
+      <File FileName="Model/RedditContext.cs" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="90" Column="41" />
+      <File FileName="Model/Comment.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="RedditAPI" expanded="True">
+            <Node name="RedditAPI" expanded="True">
+              <Node name="Migrations" expanded="True" />
+              <Node name="Model" expanded="True" />
+              <Node name="Service" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.RedditAPI PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

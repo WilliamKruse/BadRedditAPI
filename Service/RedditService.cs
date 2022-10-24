@@ -27,15 +27,15 @@ public class RedditService
             db.Add(user2);
             db.Add(user3);
             db.SaveChanges();
-            Post post1 = new Post("Hjælper vodka på tømmermænd?", "Altså jeg har det fucking dårligt og kan ikke nå min snus", db.Users.Where(u => u.Name == "William").First());
-            Post post2 = new Post("Er husholdningssprit godt mod bumser?", "Har prøvet med de der facemasks men de er lort", db.Users.Where(u => u.Name == "Jesper").First());
-            Post post3 = new Post("Kan man lære en kat at hente aviser?", "Min hund døde sidste uge og aviserne ligger stadig ude på fortorvet", db.Users.Where(u => u.Name == "Mattias").First());
+            Post post1 = new Post("Hjælper vodka på tømmermænd?", "Altså jeg har det fucking dårligt og kan ikke nå min snus", db.Users.Where(u => u.Name == "William").First(), DateTime.Now);
+            Post post2 = new Post("Er husholdningssprit godt mod bumser?", "Har prøvet med de der facemasks men de er lort", db.Users.Where(u => u.Name == "Jesper").First(), DateTime.Now) ;
+            Post post3 = new Post("Kan man lære en kat at hente aviser?", "Min hund døde sidste uge og aviserne ligger stadig ude på fortorvet", db.Users.Where(u => u.Name == "Mattias").First(), DateTime.Now);
             db.Add(post1);
             db.Add(post2);
             db.Add(post3);
-            Comment C1 = new Comment("Tror du skal finde en kæreste", 1, db.Users.Where(u => u.Name == "Mattias").First());
-            Comment C2 = new Comment("Bare du ikke drikker det, tror jeg det er okay!", 2, db.Users.Where(u => u.Name == "William").First());
-            Comment C3 = new Comment("Hey der er udskrevet valg, bare hvis du ikke har fået noget nyheder de sidste par dage", 3, db.Users.Where(u => u.Name == "Jesper").First());
+            Comment C1 = new Comment("Tror du skal finde en kæreste", 1, db.Users.Where(u => u.Name == "Mattias").First(), DateTime.Now);
+            Comment C2 = new Comment("Bare du ikke drikker det, tror jeg det er okay!", 2, db.Users.Where(u => u.Name == "William").First(), DateTime.Now);
+            Comment C3 = new Comment("Hey der er udskrevet valg, bare hvis du ikke har fået noget nyheder de sidste par dage", 3, db.Users.Where(u => u.Name == "Jesper").First(), DateTime.Now);
             db.Add(C1);
             db.Add(C2);
             db.Add(C3);
@@ -62,7 +62,7 @@ public class RedditService
     }
     public User GetUser(long id)
     {
-        return db.Users.Where(u => u.UserId == id).ToList().FirstOrDefault();
+        return db.Users.Where(u => u.UserId == id).First();
     }
     public List<Post> GetPosts()
     {
@@ -74,7 +74,7 @@ public class RedditService
     }
     public List<Comment> GetComments(long id)
     {
-        return db.Comments.Where(c => c.PostID == id).ToList();
+        return db.Comments.Where(c => c.PostId == id).ToList();
     }
     public void CommentVote(long commentID, string userName, bool like)
     {
@@ -127,7 +127,7 @@ public class RedditService
         }
         
         
-        Post newpost = new Post(title, body, db.Users.Where(u => u.Name == userName).First());
+        Post newpost = new Post(title, body, db.Users.Where(u => u.Name == userName).First(), DateTime.Now);
         db.Add(newpost);
         db.SaveChanges();
     }
@@ -140,7 +140,7 @@ public class RedditService
             db.Add(newuser);
             db.SaveChanges();
         }
-        db.Add(new Comment(body, postID, db.Users.Where(u => u.Name == userName).First()));
+        db.Add(new Comment(body, postID, db.Users.Where(u => u.Name == userName).First(), DateTime.Now));
         db.SaveChanges();
 
     }

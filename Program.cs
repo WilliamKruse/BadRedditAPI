@@ -67,15 +67,15 @@ app.MapGet("/getallusers", (RedditService service) =>
     return service.GetAllUsers();
 });
 
-app.MapGet("/getpost/{id}", (RedditService service, int id) =>
+app.MapGet("/getpost/{id}", (RedditService service, long id) =>
 {
     return service.GetPost(id);
 });
-app.MapGet("/getuser/{id}", (RedditService service, int id) =>
+app.MapGet("/getuser/{id}", (RedditService service, long id) =>
 {
     return service.GetUser(id);
 });
-app.MapGet("/getallcomment/{id}", (RedditService service, int id) =>
+app.MapGet("/getallcomment/{id}", (RedditService service, long id) =>
 {
     return service.GetComments(id);
 });
