@@ -82,21 +82,21 @@ app.MapGet("/getallcomment/{id}", (RedditService service, long id) =>
 
 app.MapPost("/post/vote", (RedditService service, VoteDTO data) =>
  {
-     service.PostVote(data.voteID, data.userName, data.like);
+     return service.PostVote(data.voteID, data.userName, data.like);
 
  });
 app.MapPost("/comment/vote", (RedditService service, VoteDTO data) =>
 {
-    service.CommentVote(data.voteID, data.userName, data.like);
+    return service.CommentVote(data.voteID, data.userName, data.like);
 
 });
 app.MapPost("/createpost", (RedditService service, PostDTO data) =>
  {
-     service.CreatePost(data.userName, data.title, data.body);
+     return service.CreatePost(data.userName, data.title, data.body);
  });
 app.MapPost("/createcomment", (RedditService service, CommentDTO data) =>
 {
-    service.CreateComment(data.userName, data.body, data.postID);
+    return service.CreateComment(data.userName, data.body, data.postID);
 });
 
 // DataService fås via "Dependency Injection" (DI)

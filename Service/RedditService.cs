@@ -76,12 +76,13 @@ public class RedditService
     {
         return db.Comments.Where(c => c.PostId == id).ToList();
     }
-    public void CommentVote(long commentID, string userName, bool like)
+    public bool CommentVote(long commentID, string userName, bool like)
     {
-        var likechecker = db.Posts.Include(u => u.UserVotes).Where(x => x.PostId == commentID).First().UserVotes;
-        if (likechecker.Any(u => u.Name == userName))
+        var likechecker = db.Users.Where(u => u.Name == userName).SelectMany(x => x.CommentVotes).Where(x=>x.CommentId == commentID).ToList();
+       // var likechecker = db.Posts.Include(u => u.UserVotes).Where(x => x.PostId == commentID).First().UserVotes;
+        if (likechecker.Count > 0)
         {
-            return;
+            return false;
         }
         if (!db.Users.Any(u => u.Name == userName))
         {
@@ -95,13 +96,15 @@ public class RedditService
         if (like) { tempComment.Votes++; }
         else { tempComment.Votes--; }
         db.SaveChanges();
+        return true;
+      
     }
-    public void PostVote(long postID, string userName, bool like)
+    public bool PostVote(long postID, string userName, bool like)
     {
-        var likechecker = db.Posts.Include(u => u.UserVotes).Where(x => x.PostId == postID).First().UserVotes;
-        if(likechecker.Any(u => u.Name == userName))
+        var likechecker = db.Users.Where(u => u.Name == userName).SelectMany(x => x.PostVotes).Where(x => x.PostId == postID).ToList();
+        if (likechecker.Count > 0)
         {
-            return;
+            return false;
         }
         if (!db.Users.Any(u => u.Name == userName))
         {
@@ -116,8 +119,9 @@ public class RedditService
         if (like) { tempPost.Votes++; }
         else { tempPost.Votes--; }
         db.SaveChanges();
+        return true;
     }
-    public void CreatePost(string userName, string title, string body)
+    public Post CreatePost(string userName, string title, string body)
     {
         if (!db.Users.Any(u => u.Name == userName))
         {
@@ -130,18 +134,21 @@ public class RedditService
         Post newpost = new Post(title, body, db.Users.Where(u => u.Name == userName).First(), DateTime.Now);
         db.Add(newpost);
         db.SaveChanges();
+        return newpost;
     }
-    public void CreateComment(string userName, string body, long postID)
+    public Comment CreateComment(string userName, string body, long postID)
     {
-        
+
         if (!db.Users.Any(u => u.Name == userName))
         {
             User newuser = new User(userName);
             db.Add(newuser);
             db.SaveChanges();
         }
-        db.Add(new Comment(body, postID, db.Users.Where(u => u.Name == userName).First(), DateTime.Now));
+            Comment newcomment = new Comment(body, postID, db.Users.Where(u => u.Name == userName).First(), DateTime.Now);
+        db.Add(newcomment);
         db.SaveChanges();
+            return newcomment;
 
     }
 }
