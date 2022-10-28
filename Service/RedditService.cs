@@ -15,6 +15,9 @@ public class RedditService
     {
         this.db = db;
     }
+
+
+
     public void SeedData()
     {
         User Uchecker = db.Users.FirstOrDefault()!;
